@@ -1,58 +1,88 @@
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.io.PrintStream;
 
+import static org.junit.Assert.assertEquals;
 
 public class MommyTest {
 
+    private Mommy mommy;
+    PrintStream printStream;
+
+    @Before
+    public void setUp(){
+        Vowels vowels = new Vowels(new String[]{"a", "e", "i", "o", "u"});
+        //Vowels vowels = mock(Vowels.class);
+        printStream = new PrintStream(System.out);
+        //printStream = mock(PrintStream.class);
+        mommy = new Mommy(vowels, 0.3, printStream);
+    }
+
     @Test
     public void shouldReturnEmptyStringWhenInputIsEmptyString(){
-        Mommy mommy=new Mommy("");
-        String output=mommy.outputMommifiedString();
-        assertTrue("".equals(output));
+        String output= mommy.mommifyString("");
+        assertEquals("",output);
     }
 
     @Test
     public void shouldReturnYWhenInputIsY(){
-        Mommy mommy=new Mommy("Y");
-        String output=mommy.outputMommifiedString();
+        String output= mommy.mommifyString("Y");
         assertEquals("Y", output);
     }
 
     @Test
     public void shouldReturnMommyWhenInputIsA(){
-        Mommy mommy=new Mommy("a");
-        String output=mommy.outputMommifiedString();
-        assertTrue("mommy".equals(output));
-    }
-
-    @Test
-    public void shouldReturnMommyWhenInputIsAA(){
-        Mommy mommy=new Mommy("aa");
-        String output=mommy.outputMommifiedString();
-        assertTrue("mommy".equals(output));
-    }
-
-    @Test
-    public void shouldReturnMommyWhenInputIsAAA(){
-        Mommy mommy=new Mommy("aaa");
-        String output=mommy.outputMommifiedString();
-        assertTrue("mommy".equals(output));
+        String output= mommy.mommifyString("a");
+        assertEquals("mommy",output);
     }
 
     @Test
     public void shouldReturnMommyWhenInputIsE(){
-        Mommy mommy=new Mommy("e");
-        String output=mommy.outputMommifiedString();
-        assertTrue("mommy".equals(output));
+        String output= mommy.mommifyString("e");
+        assertEquals("mommy",output);
     }
 
     @Test
     public void shouldReturnMommyWhenInputIsI(){
-        Mommy mommy=new Mommy("i");
-        String output=mommy.outputMommifiedString();
-        assertTrue("mommy".equals(output));
+        String output= mommy.mommifyString("i");
+        assertEquals("mommy",output);
+    }
+
+    @Test
+    public void shouldReturnMommyWhenInputIsO(){
+        String output= mommy.mommifyString("o");
+        assertEquals("mommy",output);
+    }
+
+    @Test
+    public void shouldReturnMommyWhenInputIsU(){
+        String output= mommy.mommifyString("u");
+        assertEquals("mommy",output);
+    }
+
+    @Test
+    public void shouldReturnMommyWhenInputIsAA(){
+        String output= mommy.mommifyString("aa");
+        assertEquals("mommy",output);
+    }
+
+    @Test
+    public void shouldReturnMommyWhenInputIsAAA(){
+        String output= mommy.mommifyString("aaa");
+        assertEquals("mommy",output);
+    }
+
+    @Test
+    public void shouldReturnMommyNMommyWhenInputIsAna(){
+        String output= mommy.mommifyString("ana");
+        assertEquals("mommynmommy",output);
+    }
+
+    @Test
+    public void shouldReturnHardWhenInputIsHard(){
+        String output= mommy.mommifyString("hard");
+        assertEquals("hard",output);
     }
 }

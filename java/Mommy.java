@@ -1,24 +1,45 @@
-public class Mommy {
-    private String input;
-    private char[] vowels={'a','e','i','o','u'};
+import java.io.PrintStream;
 
-    public Mommy(String input) {
-        this.input = input;
+public class Mommy {
+
+    private Vowels vowels;
+    private PrintStream printStream;
+    private double percentageThreshold;
+
+    public Mommy(Vowels vowels, double percentageThreshold, PrintStream printStream) {
+        this.vowels = vowels;
+        this.percentageThreshold = percentageThreshold;
+        this.printStream = printStream;
     }
 
-    public String outputMommifiedString() {
-        if(containsVowel()){
-            return "mommy";
+    public String mommifyString(String input) {
+
+        if(vowels.percentageVowel(input) >= percentageThreshold){
+            String answer = replaceVowelsWithMommy(input);
+            printStream.print(answer);
+            return answer;
         }
+
+        printStream.print(input);
         return input;
     }
 
-    public boolean containsVowel(){
-        for(int i=0;i<vowels.length;i++){
-//            if(input.contains((String)vowels[i]))
+    private String replaceVowelsWithMommy(String input) {
 
+        String answer = "";
+        boolean previousVowel = false;
+        for(char letter : input.toCharArray()){
+            if(vowels.isVowel(letter)){
+                if(previousVowel == false){
+                    previousVowel = true;
+                    answer += "mommy";
+                }
+            }else{
+                previousVowel = false;
+                answer += letter;
+            }
         }
-            return true;
-        return false;
+        return answer;
     }
+
 }
